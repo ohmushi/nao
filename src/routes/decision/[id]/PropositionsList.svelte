@@ -9,8 +9,8 @@
     let selected: Choice[] = $derived(propositions.filter((p: Choice)  => p.selected));
     let choose_CTA_disabled: boolean = $derived(selected.length === 0);
 
-    function cancel_adding_proposition() {
-        propositions.shift();
+    function remove_empty_propositions() {
+        propositions = propositions.filter((p: Choice) => p.value.trim().length > 0);
     }
 </script>
 
@@ -21,9 +21,9 @@
         {#each propositions as proposition}
             <li>
                 <PropositionCard
-                    value={proposition.value}
+                    bind:value={proposition.value}
                     bind:selected={proposition.selected}
-                    {cancel_adding_proposition}
+                    empty_proposition={remove_empty_propositions}
                 ></PropositionCard>
             </li>
         {:else}
@@ -34,7 +34,8 @@
 
 <style>
     form {
-        padding: var(--16px);
+        padding: 0 var(--16px);
+        height: 80%;
     }
     h2 {
         font-weight: normal;

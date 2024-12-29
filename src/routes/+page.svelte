@@ -6,8 +6,8 @@
 	import AddCta from './AddCTA.svelte';
 
     let { data }: { data: PageData } = $props();
-    let {decisions} = data;
-     
+    let decisions = $state(data.decisions);
+
 </script>
 
 <header class="logo_nao">
@@ -16,14 +16,14 @@
 <ul>
     {#each decisions as decision}
     <li>
-        <DecisionCard decision={decision}></DecisionCard>
+        <DecisionCard {decision}></DecisionCard>
     </li>
     {:else}
         <NoDecisions></NoDecisions>
     {/each}
 </ul>
 
-<AddCta>Ajouter une décision</AddCta>
+<AddCta href="decision/new">Ajouter une décision</AddCta>
 
 
 <style>

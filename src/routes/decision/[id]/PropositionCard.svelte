@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { emptyChoice } from "../../types";
 	import Card from "./Card.svelte";
 	import Checkbox from "./Checkbox.svelte";
 
     let {
-        value = '',
+        value = $bindable(''),
         selected = $bindable(false),
-        cancel_adding_proposition,
+        empty_proposition,
     } = $props();
 
     let is_new = $derived(value.trim() === '');
@@ -16,7 +17,9 @@
     })
 
     function onfocusout() {
-        if(value.trim() === '') cancel_adding_proposition();
+        if(value.trim() === '') {
+            empty_proposition();
+        }
         // TODO else propsition_updated(proposition) 
     }
 
@@ -27,7 +30,11 @@
         <Checkbox bind:checked={selected}></Checkbox>
     </label>
     
-    <input bind:this={input} bind:value {onfocusout}/>
+    <input 
+        bind:this={input} 
+        bind:value={value} 
+        {onfocusout}
+        />
 </Card>
 
 <style>

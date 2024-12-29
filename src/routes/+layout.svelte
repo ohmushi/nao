@@ -21,6 +21,8 @@
         --32px: 2rem;
         --64px: 4rem;
         --128px: 8rem;
+
+        --font-inter: "Inter";
         
         --main-color: #4E96BD;
         --main-color-light: #8F9CA4;
@@ -86,11 +88,22 @@
     }
     
     :global(a) {
+        color: black;
         text-decoration: none;
+    }
+
+    :global(input, select) {
+        font-family: var(--font-inter);
     }
     
     :global(.logo_nao) {
         padding: var(--32px) var(--16px);
+    }
+
+    :global(fieldset) {
+        margin: 0;
+        padding: 0;
+        border: none;
     }
     
 </style>

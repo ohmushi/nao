@@ -10,7 +10,6 @@
 	let { data }: { data: PageData } = $props();
     let {icon, name, choices, transaction} = data.decision;
     let propositions = $state(choices);
-    let selected: Choice[] = $derived(propositions.filter(p => p.selected));
 
 	function onClickAddProposition() {
 		propositions = [emptyChoice(), ...propositions];

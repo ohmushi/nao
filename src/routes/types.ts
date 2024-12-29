@@ -6,20 +6,23 @@ type Decision = {
     transaction: Transaction;
 }
 
-const noDecision: Decision = {
-    id: '?',
-    icon: "",
-    name: "",
-    choices: [],
-    transaction: {
-        when: new Date(),
-        how_much: {
-            amount: 0,
-            currency: "€"
-        },
-        who: ""
+function emptyDecision(): Decision {
+    return {
+        id: '?',
+        icon: "",
+        name: "",
+        choices: [],
+        transaction: {
+            when: new Date(),
+            how_much: {
+                amount: 0,
+                currency: "€"
+            },
+            who: ""
+        }
     }
 }
+
 
 type Choice = {value: string, selected: boolean};
 
@@ -42,4 +45,4 @@ type Money = {
 }
 
 export type {Decision, Choice}
-export {noDecision, emptyChoice}
+export {emptyDecision, emptyChoice}

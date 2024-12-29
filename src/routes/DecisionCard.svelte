@@ -1,8 +1,10 @@
 <script lang="ts">
     import Arrow from '$lib/assets/arrow_decision_card.svelte';
-    import { noDecision, type Decision } from "./types";
+    import { emptyDecision } from "./types";
 
-    let {decision = noDecision} = $props();
+    let {
+        decision = emptyDecision()
+        } = $props();
 </script>
 
 <a href="decision/{decision.id}">

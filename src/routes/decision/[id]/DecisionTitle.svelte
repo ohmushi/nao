@@ -13,12 +13,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 0;
         span {
-            font-size: 4rem;
+            font-size: 3rem;
         }
 
         figcaption {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
         }
     }

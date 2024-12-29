@@ -9,7 +9,7 @@
 
 <style>
     nav {
-        padding: 3rem 0 1rem 1rem;
+        padding: 1rem 0 1rem 1rem;
         a {color: var(--main-color);}
         display: flex;
         align-items: center;
