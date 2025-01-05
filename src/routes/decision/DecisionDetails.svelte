@@ -1,15 +1,26 @@
 <script lang="ts">
 	import type { Action } from "svelte/action";
 	import { emptyDecision } from "../types";
-
-    let decision = $state(emptyDecision());
+    import "../../utils/date.utils";
 
     const add_currency: Action = () => {
         $effect(() => {
-            const currency = decision.transaction.how_much.currency;
-            document.documentElement.style.setProperty('--currency', `"${currency}"`);
+            document.documentElement.style.setProperty('--currency', `"${decision.transaction.how_much.currency}"`);
         })
+    };
+
+    const tomorrow = new Date().addDays(1);
+
+    let decision = $state(defaultAddingDecision());
+
+    function defaultAddingDecision() {
+        let decision = emptyDecision();
+        decision.transaction.when = tomorrow;
+        decision.transaction.how_much.amount = 1;
+        decision.transaction.who = '0';
+        return decision;
     }
+
 </script>
 
 <svelte:document use:add_currency></svelte:document>
@@ -22,27 +33,29 @@
     <label>
         <span>🤔 Décision</span>
         <input bind:value={decision.name}
-        name="name" required placeholder="p. ex. destination prochaines vacances"/>
+        name="decision" required placeholder="p. ex. destination prochaines vacances"/>
     </label>
     <fieldset>
         <label>
             <span>⏰ Quand ?</span>
             <input bind:value={
-                () => decision.transaction.when.toISOString().substring(0,10),
-                (v: string) => decision.transaction.when = new Date(v)
+                () => decision.transaction.when.toISODateString(),
+                (v: string) => decision.transaction.when = v ? new Date(v) : tomorrow
             }
+            min={tomorrow.toISODateString()}
             type="date" required name="when">
         </label>
     
         <label id="how_much">
             <span>💳 Combien ?</span>
-            <input
+            <input bind:value={decision.transaction.how_much.amount}
             type="number" required inputmode="numeric" name="how_much" min="1" step="1">
         </label>
     
         <label>
             <span>🧑 Qui ?</span>
-            <select name="who">
+            <select bind:value={decision.transaction.who}
+            name="who">
                 <option value="0">Nao</option>
                 <option value="1">Jeremy</option>
                 <option value="2">Fabio</option>
@@ -98,6 +111,14 @@
             font-size: medium;
         }::-webkit-date-and-time-value {
             text-align: left;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml;utf8,<svg opacity='0.4' fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position-x: 100%;
+            background-position-y: 50%;
+            border-right: 0.5rem solid transparent;
         }
     }
 

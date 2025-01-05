@@ -1,6 +1,3 @@
-import { elasticIn } from "svelte/easing";
-
-
 type EventHandler = (event: Event, ...args: Array<unknown>) => void;
 
 export function preventDefault(fn: EventHandler): EventHandler {

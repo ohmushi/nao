@@ -4,7 +4,9 @@
 	import ChooseCtaCard from "./ChooseCTACard.svelte";
 	import PropositionCard from "./PropositionCard.svelte";
 
-    let {propositions = $bindable()} = $props();
+    let {
+        propositions = $bindable(),
+    } = $props();
 
     let selected: Choice[] = $derived(propositions.filter((p: Choice)  => p.selected));
     let choose_CTA_disabled: boolean = $derived(selected.length === 0);
@@ -12,9 +14,10 @@
     function remove_empty_propositions() {
         propositions = propositions.filter((p: Choice) => p.value.trim().length > 0);
     }
+
 </script>
 
-<form method="POST" action="?/choose">
+<section>
     <h2>Propositions</h2>
     <ul>
         <li><ChooseCtaCard disabled={choose_CTA_disabled}></ChooseCtaCard></li>
@@ -30,10 +33,10 @@
             <NoDecisions></NoDecisions> <!-- TODO faire un autre composant NoPropositions -->
         {/each}
     </ul>
-</form>
+</section>
 
 <style>
-    form {
+    section {
         padding: 0 var(--16px);
         height: 80%;
     }

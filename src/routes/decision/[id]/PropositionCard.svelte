@@ -20,7 +20,6 @@
         if(value.trim() === '') {
             empty_proposition();
         }
-        // TODO else propsition_updated(proposition) 
     }
 
 </script>
@@ -30,7 +29,7 @@
         <Checkbox bind:checked={selected}></Checkbox>
     </label>
     
-    <input 
+    <input
         bind:this={input} 
         bind:value={value} 
         {onfocusout}
