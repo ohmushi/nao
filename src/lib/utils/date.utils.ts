@@ -1,10 +1,13 @@
-export{}
-
 // Extends the Date interface for the whole project
 declare global {
     interface Date {
         addDays(d: number): Date;
         toISODateString(): string;
+    }
+
+    interface DateConstructor {
+        today(): Date;
+        tomorrow(): Date;
     }
 }
 
@@ -18,6 +21,9 @@ declare global {
     Date.prototype.toISODateString = function (): string {
         return this.toISOString().substring(0,10);
     }
+
+    Date.today = () => new Date();
+    Date.tomorrow = () => Date.today().addDays(1);
 })();
 
-
+export {}

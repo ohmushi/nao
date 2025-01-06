@@ -1,7 +1,19 @@
 <script lang="ts">
 	import type { Action } from "svelte/action";
-	import { emptyDecision } from "../types";
-    import "../../utils/date.utils";
+    import "$lib/utils/date.utils";
+	import type { Beneficiary, Decision } from "$lib/types";
+
+    type DetailMode = 'NEW' | 'UPDATE';
+
+    let {
+        beneficiaries,
+        decision, 
+        mode,
+    }: {
+        beneficiaries: Beneficiary[],
+        decision: Decision, 
+        mode: DetailMode,
+    } = $props();
 
     const add_currency: Action = () => {
         $effect(() => {
@@ -9,27 +21,20 @@
         })
     };
 
-    const tomorrow = new Date().addDays(1);
-
-    let decision = $state(defaultAddingDecision());
-
-    function defaultAddingDecision() {
-        let decision = emptyDecision();
-        decision.transaction.when = tomorrow;
-        decision.transaction.how_much.amount = 1;
-        decision.transaction.who = '0';
-        return decision;
-    }
-
+    $inspect(decision.transaction.who)
 </script>
 
 <svelte:document use:add_currency></svelte:document>
 
 <header>
     <a href="/">Annuler</a>
-    <h1>Nouvelle décision</h1>
+    <h1>
+        {#if mode==='NEW'}Nouvelle décision{/if}
+        {#if mode==='UPDATE'}Modifier la décision{/if}
+    </h1>
+    
 </header>
-<form>
+<form method="POST" action="/decision/new?/new">
     <label>
         <span>🤔 Décision</span>
         <input bind:value={decision.name}
@@ -40,9 +45,9 @@
             <span>⏰ Quand ?</span>
             <input bind:value={
                 () => decision.transaction.when.toISODateString(),
-                (v: string) => decision.transaction.when = v ? new Date(v) : tomorrow
+                (v: string) => { if(v) decision.transaction.when = new Date(v)}
             }
-            min={tomorrow.toISODateString()}
+            min={new Date().addDays(1).toISODateString()}
             type="date" required name="when">
         </label>
     
@@ -56,9 +61,9 @@
             <span>🧑 Qui ?</span>
             <select bind:value={decision.transaction.who}
             name="who">
-                <option value="0">Nao</option>
-                <option value="1">Jeremy</option>
-                <option value="2">Fabio</option>
+                {#each beneficiaries as beneficiary}
+                <option value={beneficiary} selected={beneficiary.id === '0'}>{beneficiary.name}</option>
+                {/each}
             </select>
         </label>
     </fieldset>

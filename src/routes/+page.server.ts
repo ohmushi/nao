@@ -1,8 +1,8 @@
-import { decisionsStore } from './data';
+import * as decisions from '$lib/server/decisions';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {	
 	return {
-		decisions: decisionsStore
+		decisions: decisions.getAllDecisions()
 	};
 };

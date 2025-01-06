@@ -14,13 +14,10 @@ function emptyDecision(): Decision {
         choices: [],
         transaction: {
             when: new Date(),
-            how_much: {
-                amount: 0,
-                currency: "€"
-            },
-            who: ""
-        }
-    }
+            how_much: {amount: 0, currency: "€"},
+            who: {id: "-1", name: ""},
+        },
+    };
 }
 
 
@@ -33,15 +30,27 @@ function emptyChoice(): Choice {
     }
 }
 
-type Transaction = {
+export type Transaction = {
     when: Date;
     how_much: Money;
-    who: string;
+    who: Beneficiary;
 }
 
-type Money = {
+export type Money = {
     amount: number;
     currency: '€';
+}
+
+export type Beneficiary = {
+    id: string;
+    name: string;
+}
+
+export function defaultBeneficiary(): Beneficiary {
+    return {
+        id: '0',
+        name: 'nao',
+    };
 }
 
 export type {Decision, Choice}

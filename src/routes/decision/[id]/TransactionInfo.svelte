@@ -1,5 +1,7 @@
 <script lang="ts">
-    let {when, how_much, who} = $props();
+    import type { Money, Beneficiary } from "$lib/types";
+
+    let {when, how_much, who} : {when: Date, how_much: Money, who: Beneficiary} = $props();
     let {amount, currency} = how_much;
 
     const dateFormatter = Intl.DateTimeFormat('fr', {
@@ -19,7 +21,7 @@
     </div>
     <div>
         <span class="head">Qui ?</span>
-        <span>🧑 {who}</span>
+        <span>🧑 {who.name}</span>
     </div>
 </section>
 

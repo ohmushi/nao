@@ -1,0 +1,57 @@
+[
+    {
+        "id": "1",
+        "icon": "🤷",
+        "name": "Nom de l'app",
+        "choices": [],
+        "transaction": {
+            "when": "2025-01-01T00:00:00.000Z",
+            "how_much": {
+                "amount": 20,
+                "currency": "€"
+            },
+            "who": {"id": "1", "name": "Fabio"}
+        }
+    },
+    {
+        "id": "2",
+        "icon": "🎉",
+        "name": "Invités soirée",
+        "choices": [
+            {
+                "value": "Charles",
+                "selected": false
+            },
+            {
+                "value": "Fabio",
+                "selected": true
+            },
+            {
+                "value": "Manon",
+                "selected": false
+            }
+        ],
+        "transaction": {
+            "when": "2024-10-24T00:00:00.000Z",
+            "how_much": {
+                "amount": 20,
+                "currency": "€"
+            },
+            "who":  {"id": "2", "name": "Jeremy"}
+        }
+    },
+    {
+        "id": "3",
+        "icon": "🤔",
+        "name": "Test",
+        "choices": [],
+        "transaction": {
+            "when": "2025-01-29T00:00:00.000Z",
+            "how_much": {
+                "amount": 20,
+                "currency": "€"
+            },
+            "who": {"id": "2", "name": "Jeremy"}
+        }
+    }
+]

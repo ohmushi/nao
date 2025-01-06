@@ -1,6 +1,6 @@
 <script lang="ts">
     import Arrow from '$lib/assets/arrow_decision_card.svelte';
-    import { emptyDecision } from "./types";
+    import { emptyDecision } from "$lib/types";
 
     let {
         decision = emptyDecision()

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-    import { emptyChoice, type Choice } from '../../types';
+    import { emptyChoice } from '$lib/types';
 	import TransactionInfo from './TransactionInfo.svelte';
 	import PropositionsList from './PropositionsList.svelte';
 	import BackToDecisions from './BackToDecisions.svelte';

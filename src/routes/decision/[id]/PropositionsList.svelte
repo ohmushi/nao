@@ -1,6 +1,6 @@
 <script lang="ts">
 	import NoDecisions from "../../NoDecisions.svelte";
-	import type { Choice } from "../../types";
+	import type { Choice } from "$lib/types";
 	import ChooseCtaCard from "./ChooseCTACard.svelte";
 	import PropositionCard from "./PropositionCard.svelte";
 

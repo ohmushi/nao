@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { emptyChoice } from "../../types";
 	import Card from "./Card.svelte";
 	import Checkbox from "./Checkbox.svelte";
 

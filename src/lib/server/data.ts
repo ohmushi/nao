@@ -1,4 +1,4 @@
-import type { Decision } from "./types"
+import type { Decision } from "$lib/types"
 
 export const decisionsStore: Decision[] = [
     {
