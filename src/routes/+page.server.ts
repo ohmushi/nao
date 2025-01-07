@@ -1,4 +1,4 @@
-import * as decisions from '$lib/server/decisions';
+import { decisions } from '$lib/server/bootstrap';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {	

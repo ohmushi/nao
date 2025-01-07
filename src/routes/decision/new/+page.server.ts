@@ -1,10 +1,9 @@
 import type { Actions, PageServerLoad } from './$types';
-import * as db from '$lib/server/decisions'
-import { defaultBeneficiary, type Beneficiary, type Decision } from '$lib/types';
+import { defaultBeneficiary, type Decision } from '$lib/types';
 import "$lib/utils/string.utils";
 import "$lib/utils/date.utils"
 import { fail, redirect } from '@sveltejs/kit';
-import { beneficiaries } from '$lib/server/bootstrap';
+import { beneficiaries, decisions } from '$lib/server/bootstrap';
 
 export const load: PageServerLoad = async () => {
 	return {
@@ -20,7 +19,7 @@ export const actions = {
 		const errors = validate_new_decision(decision);
 		if(errors.length > 0) return fail(417, {errors: errors})
 		
-		db.saveNewDecision(decision);
+		decisions.saveNewDecision(decision);
 		
 		redirect(303, '/');
 	},

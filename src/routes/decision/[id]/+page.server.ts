@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import * as decisions from '$lib/server/decisions';
 import type { PageServerLoad } from './$types';
+import { decisions } from '$lib/server/bootstrap';
 
 
 export const load: PageServerLoad = async ({ params }) => {

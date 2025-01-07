@@ -1,32 +1,42 @@
 import type { Decision } from "../types";
 import fs from 'node:fs';
 
-const decesions_path = 'src/lib/server/decisions.json';
+export interface DecisionsRepository {
+	getAllDecisions(): Decision[];
+	saveNewDecision(d: Decision): void;
+}
 
-function read_data_file(): Decision[] {
-	let data;
-	try {
-		data = JSON.parse(fs.readFileSync(decesions_path).toString());
-	} catch(e) {
-		fs.writeFileSync(decesions_path, '[]');
-		data = JSON.parse(fs.readFileSync(decesions_path).toString());
+export class JsonDecisionsRepository implements DecisionsRepository {
+	constructor(
+		private readonly path: string,
+	) {}
+
+	private read_data_file(): Decision[] {
+		let data;
+		try {
+			data = JSON.parse(fs.readFileSync(this.path).toString());
+		} catch(e) {
+			// create empty json file (with empty array)
+			fs.writeFileSync(this.path, '[]');
+			data = JSON.parse(fs.readFileSync(this.path).toString());
+		}
+		data.forEach((decision: any) => decision.transaction.when = new Date(decision.transaction.when));
+		return data;
 	}
-	data.forEach((decision: any) => decision.transaction.when = new Date(decision.transaction.when));
-	return data;
-}
+	
+	getAllDecisions(): Decision[] {
+		return this.read_data_file();
+	}
+	saveNewDecision(d: Decision): void {
+		let data = this.read_data_file();
+		d.id = (1+data.length).toString();
+		data.push(d);
+		this.write_decisions(data);
+	}
 
-export function saveNewDecision(d: Decision) {
-	let data = read_data_file();
-	d.id = (1+data.length).toString();
-	data.push(d);
-	write_decisions(data);
-}
+	private write_decisions(decisions: Decision[]): void {
+		fs.writeFileSync(this.path, JSON.stringify(decisions));
+	}
 
-function write_decisions(decisions: Decision[]): void {
-	fs.writeFileSync(decesions_path, JSON.stringify(decisions));
-}
-
-export function getAllDecisions(): Decision[] {
-	return read_data_file();
 }
 

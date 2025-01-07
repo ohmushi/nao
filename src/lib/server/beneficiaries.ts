@@ -1,6 +1,5 @@
 import { defaultBeneficiary, type Beneficiary } from "$lib/types";
 import fs from 'node:fs';
-import { beneficiaries } from "./bootstrap";
 
 export interface BeneficiariesRepository {
     getBeneficiaries(): Beneficiary[]
@@ -10,7 +9,7 @@ export interface BeneficiariesRepository {
 export class JsonBeneficiariesRepository implements BeneficiariesRepository {
 
     constructor(
-        private readonly json_path: string = 'src/lib/server/beneficiaries.json',
+        private readonly json_path: string,
     ) {}
 
     private get_beneficiaries_from_json_file(): Beneficiary[] {
