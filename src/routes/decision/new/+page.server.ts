@@ -30,16 +30,16 @@ export const actions = {
 function form_to_decision(data: FormData): Decision {
 	return {
 		id: '?',
-		icon: '🤔',
+		icon: '✅',
 		name: data.get('decision')?.toString() ?? '',
 		choices: [],
 		transaction: {
 			when: new Date(data.get('when')?.toString() ?? Date.tomorrow()),
 			how_much: {
-				amount: parseInt(data.get('how_much')?.toString() ?? '-1'),
+				amount: parseInt(data.get('how_much')?.toString() ?? '0'),
 				currency: '€'
 			},
-			who: data.get('who') as (Beneficiary | null) ?? defaultBeneficiary(),
+			who: beneficiaries.getBeneficiaryById(data.get('who')?.toString() ?? '0') ?? defaultBeneficiary(),
 		}
 	}
 }
@@ -52,6 +52,8 @@ function validate_new_decision(decision: Decision) {
 		validation_errors.push('The date must be at least tomorrow.');
 	if(decision.transaction.how_much.amount < 1)
 		validation_errors.push('The date must be at least tomorrow.');
+	if(!beneficiaries.getBeneficiaryById(decision.transaction.who.id))
+		validation_errors.push('Beneficiary doest no exists.');
 	
 	return validation_errors;
 }

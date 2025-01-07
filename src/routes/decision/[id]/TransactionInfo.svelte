@@ -44,12 +44,10 @@
 
     span:not(.head) {
         font-size: 2.3vmax;
-        font-weight: bold;
     }
 
     time {
         font-size: 1.7vmax;
-        font-weight: bold;
         background-color: var(--secondary-color-light);
         border-radius: 0.3rem;
         padding: 0.1rem 0.5rem;

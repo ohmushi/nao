@@ -1,8 +1,10 @@
 import { defaultBeneficiary, type Beneficiary } from "$lib/types";
 import fs from 'node:fs';
+import { beneficiaries } from "./bootstrap";
 
 export interface BeneficiariesRepository {
     getBeneficiaries(): Beneficiary[]
+	getBeneficiaryById(id: string): Beneficiary | null;
 }
 
 export class JsonBeneficiariesRepository implements BeneficiariesRepository {
@@ -24,5 +26,11 @@ export class JsonBeneficiariesRepository implements BeneficiariesRepository {
 
     getBeneficiaries(): Beneficiary[] {
         return this.get_beneficiaries_from_json_file();
+    }
+
+    getBeneficiaryById(id: string): Beneficiary | null {
+        return this.get_beneficiaries_from_json_file()
+                    .find(b => b.id === id) 
+                    ?? null;
     }
 }

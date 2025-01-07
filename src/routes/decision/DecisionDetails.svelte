@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Action } from "svelte/action";
     import "$lib/utils/date.utils";
-	import type { Beneficiary, Decision } from "$lib/types";
+	import { defaultBeneficiary, type Beneficiary, type Decision } from "$lib/types";
 
     type DetailMode = 'NEW' | 'UPDATE';
 
@@ -20,6 +20,10 @@
             document.documentElement.style.setProperty('--currency', `"${decision.transaction.how_much.currency}"`);
         })
     };
+
+    function beneficiary_by_id(id: string): Beneficiary {
+        return beneficiaries.find(b => b.id === id) ?? defaultBeneficiary();
+    }
 
     $inspect(decision.transaction.who)
 </script>
@@ -59,10 +63,13 @@
     
         <label>
             <span>🧑 Qui ?</span>
-            <select bind:value={decision.transaction.who}
+            <select bind:value={
+                () => beneficiary_by_id(decision.transaction.who.id).id,
+                (id: string) => { if(id) decision.transaction.who = beneficiary_by_id(id)}
+            }
             name="who">
                 {#each beneficiaries as beneficiary}
-                <option value={beneficiary} selected={beneficiary.id === '0'}>{beneficiary.name}</option>
+                <option value={beneficiary.id} selected={beneficiary.id === '0'}>{beneficiary.name}</option>
                 {/each}
             </select>
         </label>

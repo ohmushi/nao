@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ActionData, PageData } from "../$types";
+	import type { PageData } from "../$types";
 	import { defaultBeneficiary, emptyDecision, type Beneficiary } from "$lib/types";
 	import DecisionDetails from "../DecisionDetails.svelte";
 
