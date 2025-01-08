@@ -7,7 +7,6 @@
 
     let { data }: { data: PageData } = $props();
     let decisions = $state(data.decisions);
-
 </script>
 
 <header class="logo_nao">

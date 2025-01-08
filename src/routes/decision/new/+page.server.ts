@@ -49,8 +49,8 @@ function validate_new_decision(decision: Decision) {
 		validation_errors.push('Name is missing.');
 	if(decision.transaction.when.toISODateString() <= Date.today().toISODateString())
 		validation_errors.push('The date must be at least tomorrow.');
-	if(decision.transaction.how_much.amount < 1)
-		validation_errors.push('The date must be at least tomorrow.');
+	if(decision.transaction.how_much.amount < 1 || decision.transaction.how_much.amount > 100)
+		validation_errors.push(`The amount must be between 1 and 100${decision.transaction.how_much.currency}.`);
 	if(!beneficiaries.getBeneficiaryById(decision.transaction.who.id))
 		validation_errors.push('Beneficiary doest no exists.');
 	

@@ -58,7 +58,7 @@
         <label id="how_much">
             <span>💳 Combien ?</span>
             <input bind:value={decision.transaction.how_much.amount}
-            type="number" required inputmode="numeric" name="how_much" min="1" step="1">
+            type="number" required inputmode="numeric" name="how_much" min="1" max="100" step="1">
         </label>
     
         <label>

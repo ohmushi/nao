@@ -23,4 +23,12 @@ npm run build
 ## Production
 
 TODO
-Dockerize
+* Dockerize
+* CI/CD
+    * npm outdated
+    * build & push image
+    * deploy
+
+# Stripe
+
+* [Save customer payment method](https://docs.stripe.com/payments/save-and-reuse)
