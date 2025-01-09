@@ -24,8 +24,6 @@
     function beneficiary_by_id(id: string): Beneficiary {
         return beneficiaries.find(b => b.id === id) ?? defaultBeneficiary();
     }
-
-    $inspect(decision.transaction.who)
 </script>
 
 <svelte:document use:add_currency></svelte:document>

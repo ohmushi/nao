@@ -18,12 +18,11 @@ export class StripePayment implements Payment {
      * @returns Client secret 'cs_...'
      */
     async createSessionToSaveUsersPaymentInformation(redirect_url: string): Promise<string> {
-        const return_url = redirect_url + '?session_id={CHECKOUT_SESSION_ID}';
         const session = await this.stripe.checkout.sessions.create({
             mode: 'setup',
             currency: 'eur',
             ui_mode: 'embedded',
-            return_url: return_url, // http://host:port/?session_id={CHECKOUT_SESSION_ID}
+            return_url: redirect_url, // http://host:port/?session_id={CHECKOUT_SESSION_ID}
         });
         if(String.nullOrBlank(session.client_secret))
             throw new Error('Something went wrong with the creation of the Checkout Session.');
