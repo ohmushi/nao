@@ -1,4 +1,4 @@
-type Decision = {
+export type Decision = {
     id: string;
     icon: string;
     name: string;
@@ -6,7 +6,7 @@ type Decision = {
     transaction: Transaction;
 }
 
-function emptyDecision(): Decision {
+export function emptyDecision(): Decision {
     return {
         id: '?',
         icon: "",
@@ -21,9 +21,9 @@ function emptyDecision(): Decision {
 }
 
 
-type Choice = {value: string, selected: boolean};
+export type Choice = {value: string, selected: boolean};
 
-function emptyChoice(): Choice {
+export function emptyChoice(): Choice {
     return {
         value: '',
         selected: false,
@@ -38,8 +38,10 @@ export type Transaction = {
 
 export type Money = {
     amount: number;
-    currency: '€';
+    currency: Currency;
 }
+
+export type Currency = '€' | '$';
 
 export type Beneficiary = {
     id: string;
@@ -52,6 +54,3 @@ export function defaultBeneficiary(): Beneficiary {
         name: 'nao',
     };
 }
-
-export type {Decision, Choice}
-export {emptyDecision, emptyChoice}

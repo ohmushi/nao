@@ -4,11 +4,10 @@ import type { PageServerLoad } from "./$types";
 
 
 export const load: PageServerLoad = async () => { 
-    const client_secret = await payment.saveBeneficiaryPaymentCredentials(
+    const session_id = await payment.createSessionToSaveUsersPaymentInformation(
         'http://localhost:5173/beneficiaries/new?session_id={CHECKOUT_SESSION_ID}'
     ) ?? '';
 	return {
-		client_secret: client_secret,
-        public_api_key: import.meta.env.VITE_STRIPE_PUBLIC_API_KEY,
+		session_id: session_id,
 	};
 };
