@@ -4,13 +4,18 @@
 	import DecisionCard from "./DecisionCard.svelte";
     import NoDecisions from "./NoDecisions.svelte";
 	import AddCta from './AddCTA.svelte';
+    import { page } from '$app/state'; 
 
     let { data }: { data: PageData } = $props();
     let decisions = $state(data.decisions);
+
+    console.log(page.url.href);
+    
 </script>
 
 <header class="logo_nao">
     <Logo></Logo>
+    <a href="/beneficiaries/new">👨‍🍳 add beneficiary</a>
 </header>
 <ul>
     {#each decisions as decision}
@@ -31,5 +36,9 @@
         flex-direction: column;
         gap: 1rem;
         padding: 0 var(--16px);
+    }
+
+    a:hover {
+        text-decoration: underline;
     }
 </style>

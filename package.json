@@ -28,6 +28,7 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
+		"@stripe/stripe-js": "^5.5.0",
 		"stripe": "^17.5.0"
 	}
 }

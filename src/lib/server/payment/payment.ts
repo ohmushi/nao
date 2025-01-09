@@ -3,5 +3,5 @@ export interface PaymentCredentials {
 } 
 
 export interface Payment {
-    saveBeneficiaryPaymentCredentials(): void;
+    saveBeneficiaryPaymentCredentials(success_url: string): Promise<string>;
 }

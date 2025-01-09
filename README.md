@@ -31,4 +31,4 @@ TODO
 
 # Stripe
 
-* [Save customer payment method](https://docs.stripe.com/payments/save-and-reuse)
+* [Save customer payment method](https://docs.stripe.com/payments/save-and-reuse?platform=web&ui=embedded-form)
