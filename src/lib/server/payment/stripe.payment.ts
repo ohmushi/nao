@@ -6,7 +6,7 @@ export class StripePayment implements Payment {
     readonly stripe: Stripe;
 
     constructor(
-        private readonly api_key: string, // private api key "pk_..."
+        private readonly api_key: string, // secret api key "sk_..."
     ) {
         if(String.nullOrBlank(api_key)) 
             throw new Error("Stripe (private) API keys not defined.");
@@ -28,5 +28,14 @@ export class StripePayment implements Payment {
             throw new Error('Something went wrong with the creation of the Checkout Session.');
         
         return session.client_secret ?? '';
+    }
+
+    /**
+     * @param session_id Client secret 'cs_...'
+     * @returns SetupIntent Id
+     */
+    async retrieveUserStoredPaymentInformationId(session_id: string): Promise<string> {
+        const session = await this.stripe.checkout.sessions.retrieve(session_id);
+        return session.setup_intent?.toString() ?? '';
     }
 }

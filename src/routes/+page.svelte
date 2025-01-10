@@ -8,14 +8,11 @@
 
     let { data }: { data: PageData } = $props();
     let decisions = $state(data.decisions);
-
-    console.log(page.url.href);
-    
 </script>
 
 <header class="logo_nao">
     <Logo></Logo>
-    <a href="/beneficiaries/new">👨‍🍳 add beneficiary</a>
+    <a href="/me/payment">👨‍🍳 add payment method</a>
 </header>
 <ul>
     {#each decisions as decision}
