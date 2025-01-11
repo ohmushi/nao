@@ -14,10 +14,8 @@
     });
 
     async function store_user_payment_information(checkout_session_id: string) {
-        const res = await fetch(
-            page.url.href,
-            { method: 'PUT' }
-        );
+        // call +server.ts
+        fetch(page.url.href, { method: 'PUT' });
     }
 
     async function mount_stripe_form() {
@@ -27,8 +25,8 @@
     }
 
     function fetch_client_secret(): () => Promise<string> {
-        console.log(page.url.href);
         return async () => {
+            // call +server.ts
             const res = await fetch(page.url.href, { method: 'POST' });
             const { session_id }: { session_id: string } = await res.json();
             return session_id;
