@@ -14,6 +14,8 @@
     });
 
     async function store_user_payment_information(checkout_session_id: string) {
+        if(String.nullOrBlank(checkout_session_id)) return;
+        
         // call +server.ts
         fetch(page.url.href, { method: 'PUT' });
     }
