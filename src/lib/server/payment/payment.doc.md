@@ -7,9 +7,11 @@ Stripe est une solution qui fonctionne très bien, qui est fiable, qui est bien 
 
 
 Actuellement, les fonctionnalités dont nous avons besoin sont :
-* stocker les informations bancaires de l'utilisateur pour le débiter s'il n'a pas pris sa décision à temps. Cela correspond à un `SetupIntent` dans Stripe.
+* stocker les informations bancaires de l'utilisateur pour le débiter s'il n'a pas pris sa décision à temps. Cela correspond à un `SetupIntent` dans Stripe. Voir [Stocker les informations bancaire du débiteur](#stocker-les-informations-bancaire-du-débiteur).
 * stocker les information des bénéficiaires à qui transferer l'argent dans la continuité du point précédent. A COMPLETER
+* effectuer le paiement à une date précise (avec l'autorisation préalable de l'utilisateur).
 
+## Stocker les informations bancaire du débiteur
 Concretement le formulaire se saisie des informations bancaires est un formulaire Stripe embarqué (embedded) sur la route `me/payment`.
 
 > 💡 Documentation suivie pour la mise en place du formulaire Stripe : [Set up future payments](https://docs.stripe.com/payments/save-and-reuse?platform=web&ui=embedded-form) 
