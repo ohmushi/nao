@@ -22,7 +22,7 @@ export class StripePayment implements Payment {
             mode: 'setup',
             currency: 'eur',
             ui_mode: 'embedded',
-            return_url: redirect_url, // http://host:port/?session_id={CHECKOUT_SESSION_ID}
+            return_url: redirect_url, // http://url/?session_id={CHECKOUT_SESSION_ID}
         });
         if(String.nullOrBlank(session.client_secret))
             throw new Error('Something went wrong with the creation of the Checkout Session.');
