@@ -54,13 +54,3 @@ export function defaultBeneficiary(): Beneficiary {
         name: 'nao',
     };
 }
-
-export type PaymentInformation = {
-    payment_information_id: string,
-}
-
-export function default_payment_information(): PaymentInformation {
-    return {
-        payment_information_id: '',
-    }
-}

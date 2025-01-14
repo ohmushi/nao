@@ -1,10 +1,10 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { decisions } from '$lib/server/bootstrap';
+import { Decisions } from '$lib/server/bootstrap';
 
 
 export const load: PageServerLoad = async ({ params }) => {
-	let decision = decisions.getAllDecisions().find((decision) => decision.id === params.id);
+	let decision = Decisions.getAllDecisions().find((decision) => decision.id === params.id);
 	
 	if(!decision) {
 		error(404, `Unknown decision [${params.id}].`)

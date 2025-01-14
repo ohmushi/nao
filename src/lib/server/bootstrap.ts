@@ -3,7 +3,9 @@ import { JsonDecisionsRepository, type DecisionsRepository } from "./decisions";
 import { env } from '$env/dynamic/private';
 import type { Payment } from "./payment/payment";
 import { StripePayment } from "./payment/stripe.payment";
+import { JsonPaymentInformationRespository, type PaymentInformationRepository } from "./payment/payment-information.repository";
 
-export const beneficiaries: BeneficiariesRepository = new JsonBeneficiariesRepository('src/lib/server/beneficiaries.json');
-export const decisions: DecisionsRepository = new JsonDecisionsRepository('src/lib/server/decisions.json');
-export const payment: Payment = new StripePayment(env.STRIPE_SECRET_API_KEY);
+export const Beneficiaries: BeneficiariesRepository = new JsonBeneficiariesRepository('src/lib/server/beneficiaries.json');
+export const Decisions: DecisionsRepository = new JsonDecisionsRepository('src/lib/server/decisions.json');
+export const Payments: Payment = new StripePayment(env.STRIPE_SECRET_API_KEY);
+export const PaymentInformation: PaymentInformationRepository = new JsonPaymentInformationRespository('src/lib/server/payment/payment_information.json');

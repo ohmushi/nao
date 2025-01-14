@@ -4,7 +4,6 @@
 	import DecisionCard from "./DecisionCard.svelte";
     import NoDecisions from "./NoDecisions.svelte";
 	import AddCta from './AddCTA.svelte';
-    import { page } from '$app/state'; 
 
     let { data }: { data: PageData } = $props();
     let decisions = $state(data.decisions);

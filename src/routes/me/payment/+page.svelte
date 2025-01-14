@@ -2,6 +2,7 @@
     import { loadStripe } from '@stripe/stripe-js'
     import { page } from "$app/state";
 	import { onMount } from 'svelte';
+    import "$lib/utils/string.utils"
 
     let public_api_key = import.meta.env.VITE_STRIPE_PUBLIC_API_KEY;
     
@@ -16,7 +17,7 @@
     async function store_user_payment_information(checkout_session_id: string) {
         if(String.nullOrBlank(checkout_session_id)) return;
         
-        // call +server.ts
+        // call +server.ts     
         fetch(page.url.href, { method: 'PUT' });
     }
 
