@@ -2,6 +2,7 @@
 	import type { Action } from "svelte/action";
     import "$lib/utils/date.utils";
 	import { defaultBeneficiary, type Beneficiary, type Decision } from "$lib/types";
+	import { goto } from "$app/navigation";
 
     type DetailMode = 'NEW' | 'UPDATE';
 
@@ -24,6 +25,14 @@
     function beneficiary_by_id(id: string): Beneficiary {
         return beneficiaries.find(b => b.id === id) ?? defaultBeneficiary();
     }
+
+    function on_select_who(id: string): void { 
+        if(!id) return;
+        if(id === 'new') {
+            goto('/me/beneficiaries/new');
+        }
+        decision.transaction.who = beneficiary_by_id(id)
+    }
 </script>
 
 <svelte:document use:add_currency></svelte:document>
@@ -40,7 +49,7 @@
     <label>
         <span>🤔 Décision</span>
         <input bind:value={decision.name}
-        name="decision" required placeholder="p. ex. destination prochaines vacances"/>
+        name="decision" required placeholder="p. ex. destination des prochaines vacances"/>
     </label>
     <fieldset>
         <label>
@@ -63,12 +72,14 @@
             <span>🧑 Qui ?</span>
             <select bind:value={
                 () => beneficiary_by_id(decision.transaction.who.id).id,
-                (id: string) => { if(id) decision.transaction.who = beneficiary_by_id(id)}
+                on_select_who
             }
             name="who">
                 {#each beneficiaries as beneficiary}
                 <option value={beneficiary.id} selected={beneficiary.id === '0'}>{beneficiary.name}</option>
                 {/each}
+                <option disabled>__________________</option>
+                <option value="new">Nouveau bénéficiaire</option>
             </select>
         </label>
     </fieldset>
