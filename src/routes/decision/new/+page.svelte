@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from "../$types";
-	import { defaultBeneficiary, emptyDecision, type Beneficiary } from "$lib/types";
+	import { defaultBeneficiary, emptyDecision } from "$lib/types";
 	import DecisionDetails from "../DecisionDetails.svelte";
 
 	let { data }: { data: PageData } = $props();
