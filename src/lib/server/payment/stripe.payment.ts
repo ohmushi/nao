@@ -1,11 +1,13 @@
 import {Stripe} from 'stripe';
 import type { Payment } from './payment';
 import '$lib/utils/string.utils'
+import type { BeneficiariesRepository } from '../beneficiaries';
 
 export class StripePayment implements Payment {
     readonly stripe: Stripe;
 
     constructor(
+        private Beneficiaries: BeneficiariesRepository,
         private readonly api_key: string, // secret api key "sk_..."
     ) {
         if(String.nullOrBlank(api_key)) 

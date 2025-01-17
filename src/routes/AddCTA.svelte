@@ -2,11 +2,11 @@
     import Plus from '$lib/assets/plus.svelte';
 
     let {
-        children, 
+        children = null, 
         href = null, 
+        disabled = false,
         ...props
     } = $props();
-    let disabled = false;
 </script>
 
 {#snippet cta()}

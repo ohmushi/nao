@@ -46,11 +46,13 @@ export type Currency = '€' | '$';
 export type Beneficiary = {
     id: string;
     name: string;
+    receiving_method_id: string;
 }
 
 export function defaultBeneficiary(): Beneficiary {
     return {
         id: '0',
         name: 'nao',
+        receiving_method_id: 'nao',
     };
 }

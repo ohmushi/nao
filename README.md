@@ -32,3 +32,4 @@ TODO
 # Stripe
 
 * [Save customer payment method](https://docs.stripe.com/payments/save-and-reuse?platform=web&ui=embedded-form)
+* [Outbound transfers](https://docs.stripe.com/api/treasury/outbound_transfers)

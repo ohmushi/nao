@@ -6,7 +6,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { Beneficiaries, Decisions } from '$lib/server/bootstrap';
 
 export const load: PageServerLoad = async () => {
-	const b = Beneficiaries.getBeneficiaries()
+	const b = await Beneficiaries.getBeneficiaries()
 	return {
 		beneficiaries: b,
 	}

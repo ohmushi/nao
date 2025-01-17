@@ -2,8 +2,9 @@ import { defaultBeneficiary, type Beneficiary } from "$lib/types";
 import fs from 'node:fs';
 
 export interface BeneficiariesRepository {
-    getBeneficiaries(): Beneficiary[]
-	getBeneficiaryById(id: string): Beneficiary | null;
+    getBeneficiaries(): Promise<Beneficiary[]>;
+	getBeneficiaryById(id: string): Promise<Beneficiary | null>;
+    registerNewBeneficiary(name: string, receiving_method_id: string): Promise<string>;
 }
 
 export class JsonBeneficiariesRepository implements BeneficiariesRepository {
@@ -23,13 +24,32 @@ export class JsonBeneficiariesRepository implements BeneficiariesRepository {
         return data;
     }
 
-    getBeneficiaries(): Beneficiary[] {
-        return this.get_beneficiaries_from_json_file();
+    private write_beneficiaries(beneficiaries: Beneficiary[]): void {
+        fs.writeFileSync(this.json_path, JSON.stringify(beneficiaries));
     }
 
-    getBeneficiaryById(id: string): Beneficiary | null {
-        return this.get_beneficiaries_from_json_file()
+    getBeneficiaries(): Promise<Beneficiary[]> {
+        return Promise.resolve(this.get_beneficiaries_from_json_file());
+    }
+
+    getBeneficiaryById(id: string): Promise<Beneficiary | null> {
+        const beneficiary = this.get_beneficiaries_from_json_file()
                     .find(b => b.id === id) 
                     ?? null;
+        return Promise.resolve(beneficiary);
+    }
+
+    async registerNewBeneficiary(name: string, payment_method_id: string): Promise<string> {
+        const beneficiaries = await this.getBeneficiaries();
+        const id = beneficiaries.length.toString();
+        beneficiaries.push({
+            id: id,
+            name: name,
+            receiving_method_id: payment_method_id,
+        } satisfies Beneficiary);
+
+        this.write_beneficiaries(beneficiaries);
+
+        return Promise.resolve(id);
     }
 }
