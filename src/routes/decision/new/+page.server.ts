@@ -18,7 +18,7 @@ export const actions = {
 		const decision = await form_to_decision(form);
 		
 		const errors = validate_new_decision(decision);
-		if(errors.length > 0) return fail(417, {errors: errors})
+		if(errors.length > 0) return fail(417, {errors: errors});
 		
 		Decisions.saveNewDecision(decision);
 		

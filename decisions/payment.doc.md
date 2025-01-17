@@ -18,8 +18,18 @@ Concretement le formulaire se saisie des informations bancaires est un formulair
 
 A l'arrivée de l'utilisateur sur le formulaire, nous créons une CheckoutSession côté Stripe, nous ne la stockons pas, elle sert à connecter le formulaire et notre compte Stripe. Cette création se fait via un appel http côté serveur `POST` `me/payment`.
 Lors de la création de cette Session, nous renseignons une url de redirection, c'est l'url sur laquelle le navigateur est redirigé lorsque l'utilisateur a terminé ou annulé la saisie de ses informations.
-Une fois que la saisie est terminée, nous somme redirigés vers la même page mais avec le querry param `session_id`. Si ce paramètre est rempli, nous envoyons une requête http `PUT` `me/payment` qui a pour but de récupérer l'id de SetupIntent qui a été crée chez Stripe, et de le stocker, c'est le SetupIntent qui permettra au final d'effectuer des paiements futurs.
+Une fois que la saisie est terminée, nous somme redirigés vers la même page mais avec le querry param `session_id`. Si ce paramètre est rempli, nous envoyons une requête http `PUT` `me/payment` qui a pour but de récupérer l'id de SetupIntent qui a été créé chez Stripe, et de le stocker, c'est le SetupIntent qui permettra au final d'effectuer des paiements futurs.
 
 Les deux requêtes http `POST/PUT` `me/payment` sont gérés dans le fichier +server.ts de la route.
 
-Une interface `Payment` est utilisée par dessus Stripe, mais le processus est tout de même formtement polarisé par les processus Stripe (la création de la session, la redirection, recupération de la session, etc).
+Une interface `Payment` est utilisée par dessus Stripe, mais le processus est tout de même formtement polarisé par les processus Stripe (la création de la session, la redirection, recupération de la session, etc) avec une implémentation pour Stripe.
+
+## Stocker les informations bancaire des bénéficiaires
+*⏰ 2025-01-17*
+
+Le formulaire de saisie des informations d'un nouveau bénéficiaire sur la route `me/beneficiaries/new` est un formulaire avec le nom et l'email du bénéficiaire, et son IBAN.
+Le champ de saisie de l'IBAN est un `element` Stripe (iframe), qui permet la saisie et la validation de manière robuste.
+Lorsque l'on valide le formulaire, depuis le client, on créer un `PaymentMethod` Stripe avec l'IBAN, puis on enregistre l'id de ce PaymentMethod.
+
+> 💡 Documentation suivie pour la mise en place de la création du PaiementMethod: [create PaiementMethod](https://docs.stripe.com/js/payment_methods/create_payment_method)
+
