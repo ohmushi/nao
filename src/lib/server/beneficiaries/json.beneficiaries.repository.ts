@@ -1,11 +1,6 @@
 import { defaultBeneficiary, type Beneficiary } from "$lib/types";
+import type { BeneficiariesRepository } from "./beneficiaries.repository";
 import fs from 'node:fs';
-
-export interface BeneficiariesRepository {
-    getBeneficiaries(): Promise<Beneficiary[]>;
-	getBeneficiaryById(id: string): Promise<Beneficiary | null>;
-    registerNewBeneficiary(name: string, receiving_method_id: string): Promise<string>;
-}
 
 export class JsonBeneficiariesRepository implements BeneficiariesRepository {
 

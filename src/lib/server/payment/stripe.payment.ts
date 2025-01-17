@@ -1,7 +1,7 @@
 import {Stripe} from 'stripe';
 import type { Payment } from './payment';
 import '$lib/utils/string.utils'
-import type { BeneficiariesRepository } from '../beneficiaries';
+import type { BeneficiariesRepository } from '../beneficiaries/beneficiaries.repository';
 
 export class StripePayment implements Payment {
     readonly stripe: Stripe;
