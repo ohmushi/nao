@@ -14,8 +14,8 @@ export function emptyDecision(): Decision {
         choices: [],
         transaction: {
             when: new Date(),
-            how_much: {amount: 0, currency: "€"},
-            who: {id: "-1", name: ""},
+            how_much: {amount: 0, currency: '€'},
+            who: {id: '-1', name: '', receiving_method_id: ''},
         },
     };
 }

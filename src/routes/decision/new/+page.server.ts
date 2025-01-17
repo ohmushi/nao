@@ -13,9 +13,9 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions = {
-	new: async ({ cookies, request }) => {
+	new: async ({ request }) => {
 		const form = await request.formData();
-		const decision = form_to_decision(form);
+		const decision = await form_to_decision(form);
 		
 		const errors = validate_new_decision(decision);
 		if(errors.length > 0) return fail(417, {errors: errors})
@@ -27,10 +27,10 @@ export const actions = {
 
 } satisfies Actions;
 
-function form_to_decision(data: FormData): Decision {
+async function form_to_decision(data: FormData): Promise<Decision> {
 	return {
 		id: '?',
-		icon: '✅',
+		icon: '🤷',
 		name: data.get('decision')?.toString() ?? '',
 		choices: [],
 		transaction: {
@@ -39,10 +39,11 @@ function form_to_decision(data: FormData): Decision {
 				amount: parseInt(data.get('how_much')?.toString() ?? '0'),
 				currency: '€'
 			},
-			who: Beneficiaries.getBeneficiaryById(data.get('who')?.toString() ?? '0') ?? defaultBeneficiary(),
+			who: await Beneficiaries.getBeneficiaryById(data.get('who')?.toString() ?? '0') ?? defaultBeneficiary(),
 		}
 	}
 }
+
 function validate_new_decision(decision: Decision) {
 	let validation_errors = [];
 
@@ -57,4 +58,3 @@ function validate_new_decision(decision: Decision) {
 	
 	return validation_errors;
 }
-

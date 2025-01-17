@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from "../$types";
+	import type { PageData } from "./$types";
 	import { defaultBeneficiary, emptyDecision } from "$lib/types";
 	import DecisionDetails from "../DecisionDetails.svelte";
 
@@ -18,7 +18,7 @@
 	let decision = $state(defaultNewDecision());
 </script>
 
-<DecisionDetails 
+<DecisionDetails
 {decision}
 beneficiaries={data.beneficiaries}
 mode='NEW'
