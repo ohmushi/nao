@@ -14,6 +14,11 @@ npm install && npm run dev
 npm run dev:host
 ```
 
+Or with docker compose
+```bash
+docker compose up -d
+```
+
 ## Building
 
 ```bash
@@ -23,13 +28,16 @@ npm run build
 ## Production
 
 TODO
-* Dockerize
 * CI/CD
     * npm outdated
     * build & push image
     * deploy
+* decision/[id] font too big transaction info
+* New decision : check if user card was filled
+* user profile
 
 # Stripe
 
 * [Save customer payment method](https://docs.stripe.com/payments/save-and-reuse?platform=web&ui=embedded-form)
 * [Outbound transfers](https://docs.stripe.com/api/treasury/outbound_transfers)
+
