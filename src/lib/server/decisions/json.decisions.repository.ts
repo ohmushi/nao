@@ -23,16 +23,23 @@ export class JsonDecisionsRepository implements DecisionsRepository {
     getAllDecisions(): Decision[] {
         return this.read_data_file();
     }
-    saveNewDecision(d: Decision): void {
-        let data = this.read_data_file();
-        d.id = (1+data.length).toString();
-        data.push(d);
-        this.write_decisions(data);
+    saveNewDecision(d: Decision): Promise<string> {
+        let decisions = this.read_data_file();
+        d.id = (1+decisions.length).toString();
+        decisions.push(d);
+        this.write_decisions(decisions);
+        
+        return Promise.resolve(d.id);
     }
 
     private write_decisions(decisions: Decision[]): void {
         fs.writeFileSync(this.path, JSON.stringify(decisions));
     }
 
+    unsaveDecision(id: string): Promise<void> {
+        let decisions = this.read_data_file();
+        this.write_decisions(decisions.filter((d: Decision) => d.id !== id));
+        return Promise.resolve();
+    }
 }
 

@@ -3,7 +3,7 @@ import { defaultBeneficiary, type Decision } from '$lib/types';
 import "$lib/utils/string.utils";
 import "$lib/utils/date.utils"
 import { fail, redirect } from '@sveltejs/kit';
-import { Beneficiaries, Decisions } from '$lib/server/bootstrap';
+import { Beneficiaries, Decisions, PaymentInformation, Payments } from '$lib/server/bootstrap';
 
 export const load: PageServerLoad = async () => {
 	const b = await Beneficiaries.getBeneficiaries()
@@ -19,9 +19,18 @@ export const actions = {
 		
 		const errors = validate_new_decision(decision);
 		if(errors.length > 0) return fail(417, {errors: errors});
+
+		const decision_id = await Decisions.saveNewDecision(decision);
+		const user_payment_info = await PaymentInformation.retrieve_payment_information();
 		
-		Decisions.saveNewDecision(decision);
-		
+		try {
+			const payment_id = await Payments.initiate_new_payment(user_payment_info.payment_information_id, decision.transaction);
+			await PaymentInformation.register_payment_intent_for_decision(payment_id, decision_id);
+	
+		} catch(e) {
+			Decisions.unsaveDecision(decision_id);
+			console.error('Failed to initiate payment.', e)
+		}
 		redirect(303, '/');
 	},
 

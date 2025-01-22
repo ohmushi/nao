@@ -1,3 +1,5 @@
+import type { Transaction } from "$lib/types";
+
 export interface Payment {
     /**
      * User saves its payments informations in a third party service, for this, we create
@@ -15,5 +17,10 @@ export interface Payment {
      * @param session_id Id of the third party service's Session 
      * @returns Promise of the ID of the stored User's payment information
      */
-    retrieveUserStoredPaymentInformationId(session_id: string): Promise<string>;
+    retrieveUserStoredPaymentInformationIdFromSession(session_id: string): Promise<string>;
+
+    retrieveUserIdFromSession(session_id: string): Promise<String>;
+
+    // TODO doc
+    initiate_new_payment(payment_information_id: string, transaction_information: Transaction): Promise<string>;
 }

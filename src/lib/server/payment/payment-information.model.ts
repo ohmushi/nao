@@ -1,8 +1,9 @@
 export class PaymentInformation {
     payment_information_id: string = '';
     events: PaymentInformationEvent[] = [];
+    decisions: Map<string, { payment_intent: string }> = new Map();
 
-    private with_event(e: PaymentInformationEvent): PaymentInformation {
+    with_event(e: PaymentInformationEvent): PaymentInformation {
         this.events.push(e);
         return e.play(this);
     }
@@ -25,6 +26,22 @@ export class PaymentInformationRegisteredEvent extends PaymentInformationEvent {
 
     play(information: PaymentInformation): PaymentInformation {
         information.payment_information_id = this.payment_information_id;
+        return information;
+    }
+}
+
+export class PaymentIntentForDecisionRegisteredEvent extends PaymentInformationEvent {
+    constructor(
+        readonly payment_intent_id: string,
+        readonly decision_id: string,
+    ) {
+        super();
+    }
+    play(information: PaymentInformation): PaymentInformation {        
+        information.decisions.set(
+            this.decision_id,
+            { payment_intent: this.payment_intent_id }
+        )
         return information;
     }
 }
