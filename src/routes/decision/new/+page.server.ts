@@ -29,7 +29,7 @@ export const actions = {
 	
 		} catch(e) {
 			Decisions.unsaveDecision(decision_id);
-			console.error('Failed to initiate payment.', e)
+			return {error: 'Unable to initiate payment.'}
 		}
 		redirect(303, '/');
 	},
