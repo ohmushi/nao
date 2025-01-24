@@ -74,7 +74,7 @@ jobs:
           STRIPE_PUBLIC_API_KEY: ${{ secrets.STRIPE_PUBLIC_API_KEY }}
           STRIPE_SECRET_API_KEY: ${{ secrets.STRIPE_SECRET_API_KEY }}
           VITE_STRIPE_PUBLIC_API_KEY: ${{ secrets.STRIPE_PUBLIC_API_KEY }}
-          DB_DIR: /usr/src/app/db
+          DB_DIR: "/usr/src/app/db"
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
