@@ -1,11 +1,13 @@
 FROM node:22-alpine AS build
 
+RUN ["ls", "/run/secrets"]
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN ["npm", "clean-install"]
 COPY . .
 RUN ["npm", "run", "build"]
 
+RUN ["ls", "/run/secrets"]
 FROM node:22-alpine AS run
 WORKDIR /usr/src/app
 RUN ["rm", "-rf", "./*"]
