@@ -64,6 +64,16 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      - name: Check env variable
+        env:
+          ORIGIN: ${{ secrets.ORIGIN }}
+          STRIPE_PUBLIC_API_KEY: ${{ secrets.STRIPE_PUBLIC_API_KEY }}
+          STRIPE_SECRET_API_KEY: ${{ secrets.STRIPE_SECRET_API_KEY }}
+          VITE_STRIPE_PUBLIC_API_KEY: ${{ secrets.STRIPE_PUBLIC_API_KEY }}
+          DB_DIR: /usr/src/app/db
+        run: |
+          echo "$ORIGIN"
+      
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
