@@ -73,6 +73,9 @@ jobs:
           DB_DIR: /usr/src/app/db
         run: |
           echo "$ORIGIN" | wc --chars
+          echo "$STRIPE_PUBLIC_API_KEY" | wc --chars
+          echo "$STRIPE_SECRET_API_KEY" | wc --chars
+          echo "$VITE_STRIPE_PUBLIC_API_KEY" | wc --chars
       
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
