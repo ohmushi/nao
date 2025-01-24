@@ -80,6 +80,13 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          secrets: |
+            "ORIGIN=${{ secrets.ORIGIN }}"
+            "STRIPE_PUBLIC_API_KEY=${{ secrets.STRIPE_PUBLIC_API_KEY }}"
+            "STRIPE_SECRET_API_KEY=${{ secrets.STRIPE_SECRET_API_KEY }}"
+            "VITE_STRIPE_PUBLIC_API_KEY=${{ secrets.STRIPE_PUBLIC_API_KEY }}"
+            "DB_DIR=${{ secrets.DB_DIR }}"
+
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
