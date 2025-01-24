@@ -11,5 +11,7 @@ import { JsonPaymentInformationRespository } from "./payment/json.payment-inform
 
 export const Beneficiaries: BeneficiariesRepository = new JsonBeneficiariesRepository(env.DB_DIR + '/beneficiaries.db.json');
 export const Decisions: DecisionsRepository = new JsonDecisionsRepository(env.DB_DIR + '/decisions.db.json');
+console.log('lenght of STRIPE_SECRET_API_KEY', env.STRIPE_SECRET_API_KEY.length);
+
 export const Payments: Payment = new StripePayment(Beneficiaries, env.STRIPE_SECRET_API_KEY);
 export const PaymentInformation: PaymentInformationRepository = new JsonPaymentInformationRespository(env.DB_DIR + '/payment_information.db.json'); 
