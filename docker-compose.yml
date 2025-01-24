@@ -11,3 +11,9 @@ services:
       STRIPE_SECRET_API_KEY: ${STRIPE_SECRET_API_KEY}
       VITE_STRIPE_PUBLIC_API_KEY: ${VITE_STRIPE_PUBLIC_API_KEY}
       DB_DIR: /usr/src/app/db
+    secrets:
+      - STRIPE_SECRET_API_KEY
+
+secrets:
+  STRIPE_SECRET_API_KEY:
+    environment: STRIPE_SECRET_API_KEY
