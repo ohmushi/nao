@@ -76,6 +76,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           outputs: digest
+          load: true
           secrets: |
             "STRIPE_SECRET_API_KEY=${{ secrets.STRIPE_SECRET_API_KEY }}"
 
