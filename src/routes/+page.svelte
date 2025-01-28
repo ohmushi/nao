@@ -12,6 +12,7 @@
 <header class="logo_nao">
     <Logo></Logo>
     <a href="/me/payment">👨‍🍳 add payment method</a>
+    <span>Test WatchTower</span>
 </header>
 <ul>
     {#each decisions as decision}
