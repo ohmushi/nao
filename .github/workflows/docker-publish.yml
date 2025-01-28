@@ -60,7 +60,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934
+        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
@@ -75,8 +75,19 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          outputs: digest
           secrets: |
             "STRIPE_SECRET_API_KEY=${{ secrets.STRIPE_SECRET_API_KEY }}"
+
+
+      - name: Log extracted tags
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: echo "Extracted tags ${TAGS}"
+
+      - name: Validate Digest
+        if: ${{ steps.build-and-push.outputs.digest == '' }}
+        run: echo "Error Digest is empty" && exit 1
 
 
       # Sign the resulting Docker image digest.
@@ -86,6 +97,7 @@ jobs:
       # https://github.com/sigstore/cosign
       - name: Sign the published Docker image
         env:
+          # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
           TAGS: ${{ steps.meta.outputs.tags }}
           DIGEST: ${{ steps.build-and-push.outputs.digest }}
         # This step uses the identity token to provision an ephemeral certificate
