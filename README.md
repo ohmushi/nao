@@ -28,10 +28,6 @@ npm run build
 ## Production
 
 TODO
-* CI/CD
-    * npm outdated
-    * build & push image
-    * deploy
 * decision/[id] font too big transaction info
 * New decision : check if user card was filled
 * user profile
