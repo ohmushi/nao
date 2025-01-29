@@ -9,7 +9,10 @@ import { JsonBeneficiariesRepository } from "./beneficiaries/json.beneficiaries.
 import type { PaymentInformationRepository } from "./payment/payment-information.repository";
 import { JsonPaymentInformationRespository } from "./payment/json.payment-information.repository";
 
-export const Beneficiaries: BeneficiariesRepository = new JsonBeneficiariesRepository(env.DB_DIR + '/beneficiaries.db.json');
-export const Decisions: DecisionsRepository = new JsonDecisionsRepository(env.DB_DIR + '/decisions.db.json');
-export const Payments: Payment = new StripePayment(Beneficiaries, env.STRIPE_SECRET_API_KEY);
-export const PaymentInformation: PaymentInformationRepository = new JsonPaymentInformationRespository(env.DB_DIR + '/payment_information.db.json'); 
+const db_dir = `${env.DB_DIR}`;
+const stripe_secret_api_key = `${env.STRIPE_SECRET_API_KEY}`;
+
+export const Beneficiaries: BeneficiariesRepository = new JsonBeneficiariesRepository(db_dir + '/beneficiaries.db.json');
+export const Decisions: DecisionsRepository = new JsonDecisionsRepository(db_dir + '/decisions.db.json');
+export const Payments: Payment = new StripePayment(Beneficiaries, stripe_secret_api_key);
+export const PaymentInformation: PaymentInformationRepository = new JsonPaymentInformationRespository(db_dir + '/payment_information.db.json'); 

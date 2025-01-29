@@ -3,7 +3,7 @@
 	import { onMount } from "svelte";
     import "$lib/utils/string.utils";
 
-    const public_api_key = import.meta.env.VITE_STRIPE_PUBLIC_API_KEY;
+    const public_api_key = `${import.meta.env.VITE_STRIPE_PUBLIC_API_KEY}`;
     let stripe: Stripe | null = null;
     let iban_element: StripeIbanElement | null;
     let form: HTMLFormElement;
