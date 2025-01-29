@@ -4,6 +4,8 @@
 	import { onMount } from 'svelte';
     import "$lib/utils/string.utils"
 
+    export const ssr = false;
+
     const public_api_key = `${import.meta.env.VITE_STRIPE_PUBLIC_API_KEY}`;
     console.log('PUBLIC STRIPE KEY |', public_api_key, '|');
     
