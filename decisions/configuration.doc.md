@@ -33,3 +33,13 @@ const secret_api_key = env.STRIPE_SECRET_API_KEY
 > NB : ici on utilise les varibles d'environnement de manière [dynamique privée](https://svelte.dev/tutorial/kit/env-static-private) mais elles peuvent être dynamique ou statique et privée ou publique. Voir les [tutoriaux](https://svelte.dev/tutorial/kit/env-static-public).
 
 ## Bootstrap
+Pour arriver à configurer quelle implémentation choisir pour une interface, dans sveltkit, il n'y a pas de solution toute faite comme Spring par exemple, il existe la dépendance [TypeDI](https://github.com/typestack/typedi) qui est un container.
+Mais c'est une dépendance non nécessaire et on peut arriver à un résultat similaire relativement facilement.
+J'ai opté pour un simple fichier `bootstrap.ts` qui exporte en constante les implementations des services, repositories, etc.
+Développer une solution comme TipeDI avec anotation (@Service, @Repository, etc) serais une bonne chose dans le futur.
+
+ex:
+```ts
+const repo: Repository = new ImplementationRepository();
+export const service: InterfaceService = new ImplementationService(repo);
+```
