@@ -5,6 +5,8 @@
     import "$lib/utils/string.utils"
 
     const public_api_key = `${import.meta.env.VITE_STRIPE_PUBLIC_API_KEY}`;
+    console.log('PUBLIC STRIPE KEY |', public_api_key, '|');
+    
     
     onMount(async () => {
         if(page.url.searchParams.has('session_id')) {
