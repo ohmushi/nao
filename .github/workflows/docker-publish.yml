@@ -81,8 +81,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
-          secrets: |
-            "STRIPE_SECRET_API_KEY=${{ secrets.STRIPE_SECRET_API_KEY }}"
 
 
       # Sign the resulting Docker image digest.

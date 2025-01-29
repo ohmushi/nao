@@ -1,19 +1,16 @@
 services:
-  nao_svelte:
+  nao:
+    container_name: "nao"
     build:
       dockerfile: ./Dockerfile
       target: run
     ports:
       - '3000:3000'
+    volumes:
+      - ./${DB_DIR}:/usr/src/app/db
     environment:
       ORIGIN: ${ORIGIN}
       STRIPE_PUBLIC_API_KEY: ${STRIPE_PUBLIC_API_KEY}
       STRIPE_SECRET_API_KEY: ${STRIPE_SECRET_API_KEY}
-      VITE_STRIPE_PUBLIC_API_KEY: ${VITE_STRIPE_PUBLIC_API_KEY}
+      VITE_STRIPE_PUBLIC_API_KEY: ${STRIPE_PUBLIC_API_KEY}
       DB_DIR: /usr/src/app/db
-    secrets:
-      - STRIPE_SECRET_API_KEY
-
-secrets:
-  STRIPE_SECRET_API_KEY:
-    environment: STRIPE_SECRET_API_KEY
