@@ -1,13 +1,13 @@
 FROM node:22-alpine AS build
 
+ARG VITE_STRIPE_PUBLIC_API_KEY
+ENV VITE_STRIPE_PUBLIC_API_KEY=$VITE_STRIPE_PUBLIC_API_KEY
 
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN ["npm", "clean-install"]
 COPY . .
-RUN STRIPE_SECRET_API_KEY="_" \
-    VITE_STRIPE_PUBLIC_API_KEY="_ _" \
-    npm run build
+RUN npm run build 
 
 FROM node:22-alpine AS run
 WORKDIR /usr/src/app

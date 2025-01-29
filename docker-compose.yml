@@ -4,6 +4,8 @@ services:
     build:
       dockerfile: ./Dockerfile
       target: run
+      args:
+        VITE_STRIPE_PUBLIC_API_KEY: ${STRIPE_PUBLIC_API_KEY}
     ports:
       - '3000:3000'
     volumes:
@@ -12,5 +14,4 @@ services:
       ORIGIN: ${ORIGIN}
       STRIPE_PUBLIC_API_KEY: ${STRIPE_PUBLIC_API_KEY}
       STRIPE_SECRET_API_KEY: ${STRIPE_SECRET_API_KEY}
-      VITE_STRIPE_PUBLIC_API_KEY: ${STRIPE_PUBLIC_API_KEY}
       DB_DIR: /usr/src/app/db
