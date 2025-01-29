@@ -6,6 +6,7 @@ COPY package*.json ./
 RUN ["npm", "clean-install"]
 COPY . .
 RUN STRIPE_SECRET_API_KEY="_" \
+    VITE_STRIPE_PUBLIC_API_KEY="_ _" \
     npm run build
 
 FROM node:22-alpine AS run
